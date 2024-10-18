@@ -7,8 +7,10 @@ import java.awt.event.MouseListener;
 public class EditorMouseHandler implements MouseListener {
     Rectangle[][] field;
     public final boolean[][] fieldClicked;
-    private boolean mousePressedBool;
-    private boolean mouseReleasedBool;
+    private boolean leftClickPressedBool;
+    private boolean leftClickReleasedBool;
+    private boolean rightClickPressedBool;
+    private boolean rightClickReleasedBool;
 
     public EditorMouseHandler() {
         field = new Rectangle[EditorPanel.FIELD_WIDTH][EditorPanel.FIELD_HEIGHT];
@@ -27,13 +29,22 @@ public class EditorMouseHandler implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mousePressedBool = true;
+        if (e.getButton() == MouseEvent.BUTTON1) {leftClickPressedBool = true;}
+        if (e.getButton() == MouseEvent.BUTTON3) {rightClickPressedBool = true;}
+
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseReleasedBool = true;
-        mousePressedBool = false;
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            leftClickReleasedBool = true;
+            leftClickPressedBool = false;
+        }
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            rightClickReleasedBool = true;
+            rightClickPressedBool = false;
+        }
     }
 
     @Override
@@ -46,13 +57,16 @@ public class EditorMouseHandler implements MouseListener {
         // TODO document why this method is empty
     }
 
-    public boolean isMousePressedBool() {
-        return mousePressedBool;
+    public boolean isLeftClickPressedBool() {
+        return leftClickPressedBool;
     }
-    public boolean isMouseReleasedBool() {
-        return mouseReleasedBool;
+    public boolean isLeftClickReleasedBool() {
+        return leftClickReleasedBool;
     }
-    public void mouseReleasedActionDone() {
-        mouseReleasedBool = false;
+    public void leftClickActionDone() {
+        leftClickReleasedBool = false;
     }
+    public boolean isRightClickPressedBool() {return rightClickPressedBool;}
+    public boolean isRightClickReleasedBool() {return rightClickReleasedBool;}
+    public void rightClickActionDone() {rightClickReleasedBool = false;}
 }

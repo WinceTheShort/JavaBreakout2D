@@ -10,8 +10,22 @@ public class Sprite extends TextureRegion{
     public Sprite(Texture texture) {
         super(texture);
     }
+    public Sprite(Texture texture, int x, int y, int width, int height) {
+        super(texture);
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
     public Sprite(TextureRegion textureRegion) {
         super(textureRegion);
+    }
+    public Sprite(TextureRegion region, int x, int y, int width, int height) {
+        super(region);
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
     }
 
     //Getters and setters
