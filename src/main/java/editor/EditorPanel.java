@@ -8,6 +8,7 @@ import util.TextureRegion;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class EditorPanel extends JPanel implements Runnable {
 
@@ -24,7 +25,7 @@ public class EditorPanel extends JPanel implements Runnable {
     int fps = 120;
 
     //Handlers
-    public final transient EditorKeyHandler editorKeyHandler = new EditorKeyHandler();
+    public final EditorKeyHandler editorKeyHandler = new EditorKeyHandler();
     public final transient EditorMouseHandler editorMouseHandler = new EditorMouseHandler();
     public final transient EditorMouseWheelHandler editorMouseWheelHandler = new EditorMouseWheelHandler();
 
@@ -38,6 +39,7 @@ public class EditorPanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         setDoubleBuffered(true);
         setFocusable(true);
+        setBackground(Color.WHITE);
         addKeyListener(editorKeyHandler);
         addMouseListener(editorMouseHandler);
         addMouseWheelListener(editorMouseWheelHandler);
@@ -88,6 +90,15 @@ public class EditorPanel extends JPanel implements Runnable {
     public void update() {
         bricks.update();
         infoBrick.setActiveSprite(editorMouseWheelHandler.getBrickType());
+        if (editorKeyHandler.keys[KeyEvent.VK_S] && editorKeyHandler.keys[KeyEvent.VK_CONTROL]){
+            bricks.saveBoard();
+        }
+        if (editorKeyHandler.keys[KeyEvent.VK_O] && editorKeyHandler.keys[KeyEvent.VK_CONTROL]){
+            bricks.openBoard();
+        }
+        if (editorKeyHandler.keys[KeyEvent.VK_N] && editorKeyHandler.keys[KeyEvent.VK_CONTROL]){
+            bricks.newBoard();
+        }
     }
 
     @Override

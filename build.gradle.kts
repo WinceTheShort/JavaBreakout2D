@@ -11,6 +11,10 @@ application {
     mainClass.set("org.example.Main")
 }
 
+dependencies {
+    implementation("com.formdev:flatlaf:3.5.1")
+}
+
 group = "org.example"
 version = "1.0-SNAPSHOT"
 

@@ -1,10 +1,11 @@
 package util;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class SpriteSheet extends Rectangle {
-    protected Sprite[] sprites;
+public class SpriteSheet extends Rectangle implements Serializable {
+    protected transient Sprite[] sprites;
     protected int activeSprite = 0;
     protected int spriteNum = 0;
 
@@ -35,9 +36,6 @@ public class SpriteSheet extends Rectangle {
 
     public Sprite getSprite() {
         return sprites[activeSprite];
-    }
-    public void setSprite(Sprite sprite) {
-        sprites[activeSprite] = sprite;
     }
     public int getSpriteNum() {
         return spriteNum;
