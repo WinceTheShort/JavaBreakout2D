@@ -1,26 +1,33 @@
 package org.example;
 
 import entity.Player;
+import util.Sprite;
 import util.Texture;
 import util.TextureRegion;
 
 import javax.swing.*;
 import java.awt.*;
 
+import static org.example.GParams.*;
+
 public class GamePanel extends JPanel implements Runnable {
 
     //Screen settings
-    public static final int GRID_WIDTH = 32;
-    public static final int GRID_HEIGHT = 16;
-    private static final int SCREEN_WIDTH = 40*GRID_WIDTH;
-    private static final int SCREEN_HEIGHT = 45*GRID_HEIGHT;
+    public static final int EXTRA_HEIGHT = 5;
+    private static final int SCREEN_WIDTH = FIELD_WIDTH*GRID_WIDTH;
+    private static final int SCREEN_HEIGHT = FIELD_HEIGHT*(GRID_HEIGHT+EXTRA_HEIGHT);
 
     //FPS
     int fps = 120;
 
     private transient Thread gameThread;
-    private transient KeyHandler keyHandler = new KeyHandler();
-    private transient Player player = new Player(this, keyHandler, new TextureRegion(new Texture("src/images/brickSprites.png"), 16, 0, 16, 16));
+    private final transient KeyHandler keyHandler = new KeyHandler();
+    //Creates the grid sprite to match the grid and field sizes
+    private final transient Sprite grid = new Sprite(new TextureRegion(new Texture("src/images/editorGrid.png"),0,0,32*FIELD_WIDTH,16*FIELD_HEIGHT),
+            0, 0, GRID_WIDTH * FIELD_WIDTH, GRID_HEIGHT * FIELD_HEIGHT);
+    //Brick field
+
+    private final transient Player player = new Player(this, keyHandler, new TextureRegion(new Texture("src/images/brickSprites.png"), 16, 0, 16, 16));
 
 
     public GamePanel(){
@@ -84,6 +91,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
+        grid.draw(g2d);
         player.draw(g2d);
 
         g2d.dispose();

@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import static org.example.GParams.*;
+
 public class EditorMouseHandler implements MouseListener {
     Rectangle[][] field;
     public final boolean[][] fieldClicked;
@@ -13,13 +15,13 @@ public class EditorMouseHandler implements MouseListener {
     private boolean rightClickReleasedBool;
 
     public EditorMouseHandler() {
-        field = new Rectangle[EditorPanel.FIELD_WIDTH][EditorPanel.FIELD_HEIGHT];
-        for (int x = 0; x < EditorPanel.FIELD_WIDTH; x++){
-            for (int y = 0; y < EditorPanel.FIELD_HEIGHT; y++){
-                field[x][y] = new Rectangle(x*EditorPanel.GRID_WIDTH, y*EditorPanel.GRID_HEIGHT, EditorPanel.GRID_WIDTH, EditorPanel.GRID_HEIGHT);
+        field = new Rectangle[FIELD_WIDTH][FIELD_HEIGHT];
+        for (int x = 0; x < FIELD_WIDTH; x++){
+            for (int y = 0; y < FIELD_HEIGHT; y++){
+                field[x][y] = new Rectangle(x*GRID_WIDTH, y*GRID_HEIGHT, GRID_WIDTH, GRID_HEIGHT);
             }
         }
-        fieldClicked = new boolean[EditorPanel.FIELD_WIDTH][EditorPanel.FIELD_HEIGHT];
+        fieldClicked = new boolean[FIELD_WIDTH][FIELD_HEIGHT];
     }
 
     @Override

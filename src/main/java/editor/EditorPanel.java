@@ -1,7 +1,7 @@
 package editor;
 
 import entity.Brick;
-import entity.BrickField;
+import entity.EditorBrickField;
 import util.Sprite;
 import util.Texture;
 import util.TextureRegion;
@@ -10,13 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import static org.example.GParams.*;
+
 public class EditorPanel extends JPanel implements Runnable {
 
     //Screen settings
-    public static final int GRID_WIDTH = 64;
-    public static final int GRID_HEIGHT = 32;
-    public static final int FIELD_WIDTH = 35;
-    public static final int FIELD_HEIGHT = 35;
     public static final int INFO_PANEL_HEIGHT = GRID_HEIGHT*4;
     public static final int SCREEN_WIDTH = FIELD_WIDTH * GRID_WIDTH;
     public static final int SCREEN_HEIGHT = FIELD_HEIGHT * GRID_HEIGHT + INFO_PANEL_HEIGHT;
@@ -32,7 +30,8 @@ public class EditorPanel extends JPanel implements Runnable {
     private transient Thread editorThread;
     //Creates the grid sprite to match the grid and field sizes
     private final transient Sprite grid = new Sprite(new TextureRegion(new Texture("src/images/editorGrid.png"),0,0,32*FIELD_WIDTH,16*FIELD_HEIGHT), 0, 0, GRID_WIDTH * FIELD_WIDTH, GRID_HEIGHT * FIELD_HEIGHT);
-    private final transient BrickField bricks = new BrickField(this);
+    //Brick field
+    private final transient EditorBrickField bricks = new EditorBrickField(this);
     private final transient Brick infoBrick = new Brick(0,FIELD_HEIGHT * GRID_HEIGHT, GRID_WIDTH*4, GRID_WIDTH*4);
 
     public EditorPanel() {
