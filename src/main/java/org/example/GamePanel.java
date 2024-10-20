@@ -1,6 +1,8 @@
 package org.example;
 
 import entity.Player;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.Sprite;
 import util.Texture;
 import util.TextureRegion;
@@ -11,6 +13,8 @@ import java.awt.*;
 import static org.example.GParams.*;
 
 public class GamePanel extends JPanel implements Runnable {
+
+    transient Logger logger = LoggerFactory.getLogger(GamePanel.class);
 
     //Screen settings
     public static final int EXTRA_HEIGHT = 5;
@@ -74,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 
             if (frameTimer >= 1000000000){
-                System.out.println("FPS: " + frames);
+                logger.debug("FPS: {}", frames);
                 frames = 0;
                 frameTimer = 0;
             }

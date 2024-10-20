@@ -2,6 +2,8 @@ package editor;
 
 import entity.Brick;
 import entity.EditorBrickField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.Sprite;
 import util.Texture;
 import util.TextureRegion;
@@ -13,6 +15,8 @@ import java.awt.event.KeyEvent;
 import static org.example.GParams.*;
 
 public class EditorPanel extends JPanel implements Runnable {
+
+    transient Logger logger = LoggerFactory.getLogger(EditorPanel.class);
 
     //Screen settings
     public static final int INFO_PANEL_HEIGHT = GRID_HEIGHT*4;
@@ -79,7 +83,7 @@ public class EditorPanel extends JPanel implements Runnable {
             }
 
             if (frameTimer >= 1000000000){
-                System.out.println("FPS: " + frames);
+                logger.debug("FPS: {}", frames);
                 frames = 0;
                 frameTimer = 0;
             }

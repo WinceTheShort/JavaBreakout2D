@@ -1,5 +1,8 @@
 package util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,12 +11,14 @@ import java.io.IOException;
 public class Texture {
     protected BufferedImage bufferedImage;
 
+    Logger logger = LoggerFactory.getLogger(Texture.class);
+
     public Texture(String filename) {
 
         try {
             bufferedImage = ImageIO.read(new File(filename));
         } catch (IOException e) {
-            System.err.println("Error reading image " + filename);
+            logger.error("Error reading image {}", filename);
         }
     }
 

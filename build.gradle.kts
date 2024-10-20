@@ -3,16 +3,16 @@ plugins {
     application
 }
 
-ext {
-    var javaMainClass = "org.example.Main"
-}
+val flatlafVersion = "3.5.1"
+val logbackVersion = "1.4.12"
 
 application {
     mainClass.set("org.example.Main")
 }
 
 dependencies {
-    implementation("com.formdev:flatlaf:3.5.1")
+    implementation("com.formdev:flatlaf:$flatlafVersion")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
 }
 
 group = "org.example"
