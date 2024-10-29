@@ -26,7 +26,7 @@ public class EditorMouseHandler implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO document why this method is empty
+        // Unused event
     }
 
     @Override
@@ -51,12 +51,12 @@ public class EditorMouseHandler implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO document why this method is empty
+        // Unused event
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO document why this method is empty
+        // Unused event
     }
 
     public boolean isLeftClickPressedBool() {

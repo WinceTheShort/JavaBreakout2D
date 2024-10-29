@@ -23,11 +23,11 @@ public class LevelEditor {
         frame.setResizable(false);
         frame.setTitle("Editor");
 
-        EditorPanel editorPanel = new EditorPanel();
-        frame.add(editorPanel);
+        BrickFieldPanel brickFieldPanel = new BrickFieldPanel(frame, null, null);
+        frame.add(brickFieldPanel);
         frame.pack();
 
-        editorPanel.stratEditorThread();
+        brickFieldPanel.startEditorThread();
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

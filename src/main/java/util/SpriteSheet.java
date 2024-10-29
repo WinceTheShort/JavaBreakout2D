@@ -20,6 +20,7 @@ public class SpriteSheet extends Rectangle implements Serializable {
         }
     }
     public void draw(Graphics2D g2d) {
+        //Draws the active sprite at the sprite sheets location
         sprites[activeSprite].setBounds(x, y, width, height);
         sprites[activeSprite].draw(g2d);
     }
@@ -46,13 +47,5 @@ public class SpriteSheet extends Rectangle implements Serializable {
     public void setActiveSprite(int activeSprite) {
         if (activeSprite < 0 || activeSprite >= sprites.length) return;
         this.activeSprite = activeSprite;
-    }
-
-    @Override
-    public boolean equals(Object o){
-        if (o instanceof SpriteSheet s){
-            return (spriteNum == s.spriteNum && activeSprite == s.activeSprite && Arrays.equals(sprites, s.sprites) && super.equals(o));
-        }
-        return super.equals(o);
     }
 }

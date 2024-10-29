@@ -1,6 +1,6 @@
 package entity;
 
-import editor.EditorPanel;
+import editor.BrickFieldPanel;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -10,13 +10,13 @@ import static org.example.GParams.*;
 import static org.example.GParams.FIELD_HEIGHT;
 
 public class EditorBrickField extends BrickField {
-    private final transient EditorPanel editor;
+    private final transient BrickFieldPanel editor;
     protected File saveFile = null;
     protected boolean saved = false;
 
-    public EditorBrickField(EditorPanel editorPanel) {
+    public EditorBrickField(BrickFieldPanel brickFieldPanel) {
         super();
-        editor = editorPanel;
+        editor = brickFieldPanel;
 
     }
     public void update() {

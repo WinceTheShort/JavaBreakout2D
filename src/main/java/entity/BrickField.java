@@ -26,11 +26,13 @@ public class BrickField implements Serializable {
         }
     }
     protected void load(File file){
+        //Save field
         try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file))) {
             field = (Brick[][]) oos.readObject();
         } catch (Exception e){
             e.printStackTrace();
         }
+        //Reload bricks textures
         for (Brick[] bricks : field){
             for (Brick brick : bricks){
                 brick.reloadTexture();

@@ -5,6 +5,7 @@ plugins {
 
 val flatlafVersion = "3.5.1"
 val logbackVersion = "1.4.12"
+val migLayoutVersion = "4.2"
 
 application {
     mainClass.set("org.example.Main")
@@ -13,6 +14,7 @@ application {
 dependencies {
     implementation("com.formdev:flatlaf:$flatlafVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("com.miglayout:miglayout-swing:$migLayoutVersion")
 }
 
 group = "org.example"

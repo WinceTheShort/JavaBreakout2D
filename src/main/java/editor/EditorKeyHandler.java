@@ -10,7 +10,7 @@ public class EditorKeyHandler implements KeyListener, Serializable {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO document why this method is empty
+        // Unused event
     }
 
     @Override

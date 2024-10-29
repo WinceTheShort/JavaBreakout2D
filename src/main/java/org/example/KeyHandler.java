@@ -2,15 +2,14 @@ package org.example;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.Serializable;
 
-public class KeyHandler implements KeyListener, Serializable {
+public class KeyHandler implements KeyListener{
 
     public final boolean[] keys = new boolean[256];
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO document why this method is empty
+        // Unused event
     }
 
     @Override

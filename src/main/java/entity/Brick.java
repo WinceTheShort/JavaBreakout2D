@@ -9,9 +9,10 @@ import java.io.Serializable;
 
 
 public class Brick extends SpriteSheet implements Serializable {
-    protected boolean isAlive;
     private static final String BRICK_SPRITES_PNG = "src/images/brickSprites.png";
     private static final int BRICK_SPRITES_SIZE = 16;
+
+    protected boolean isAlive;
 
     public Brick() {
         super(new Texture(BRICK_SPRITES_PNG), BRICK_SPRITES_SIZE, BRICK_SPRITES_SIZE);
@@ -47,13 +48,5 @@ public class Brick extends SpriteSheet implements Serializable {
                 sprites[i+j] = new Sprite (new TextureRegion(texture, i*BRICK_SPRITES_SIZE, j*BRICK_SPRITES_SIZE, BRICK_SPRITES_SIZE, BRICK_SPRITES_SIZE));
             }
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof Brick b) {
-            return (isAlive == b.isAlive && super.equals(o));
-        }
-        else return super.equals(o);
     }
 }
