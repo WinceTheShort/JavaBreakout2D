@@ -1,9 +1,9 @@
-package org.example;
+package game;
 
 import entity.BrickField;
 
 public class GameBrickField extends BrickField {
     public GameBrickField() {
-        // TODO document why this constructor is empty
+        // TODO make this class
     }
 }

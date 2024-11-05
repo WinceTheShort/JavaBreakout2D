@@ -18,7 +18,7 @@ public class EditorMouseHandler implements MouseListener {
         field = new Rectangle[FIELD_WIDTH][FIELD_HEIGHT];
         for (int x = 0; x < FIELD_WIDTH; x++){
             for (int y = 0; y < FIELD_HEIGHT; y++){
-                field[x][y] = new Rectangle(x*GRID_WIDTH, y*GRID_HEIGHT, GRID_WIDTH, GRID_HEIGHT);
+                field[x][y] = new Rectangle(x* gridWidth, y* gridHeight, gridWidth, gridHeight);
             }
         }
         fieldClicked = new boolean[FIELD_WIDTH][FIELD_HEIGHT];

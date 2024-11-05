@@ -1,8 +1,10 @@
-package org.example;
+package menu;
 
-import editor.BrickFieldPanel;
+import editor.EditorPanel;
+import game.GameContainerPanel;
 import level_select.LevelSlelectPanel;
 import net.miginfocom.swing.MigLayout;
+import org.example.GParams;
 import scores.ScoresPanel;
 import util.CustomButton;
 import util.StatePanel;
@@ -22,24 +24,24 @@ public class MenuPanel extends StatePanel{
     private transient CustomButton exitButton = new CustomButton();
     private transient AnimPanel animPanel = new AnimPanel();
 
-    private transient GamePanel gamePanel;
+    private transient GameContainerPanel gameContainerPanel;
     private transient ScoresPanel scoresPanel;
     private transient LevelSlelectPanel levelSlelectPanel;
-    private transient BrickFieldPanel brickFieldPanel;
+    private transient EditorPanel editorPanel;
 
     public MenuPanel(JFrame frame){
         super(frame);
         inState = true;
 
-        gamePanel = new GamePanel(frame, this, animPanel);
+        gameContainerPanel = new GameContainerPanel(frame, this, animPanel);
         scoresPanel = new ScoresPanel(frame, this, animPanel);
         levelSlelectPanel = new LevelSlelectPanel(frame, this, animPanel);
-        brickFieldPanel = new BrickFieldPanel(frame, this, animPanel);
+        editorPanel = new EditorPanel(frame, this, animPanel);
 
         setPreferredSize(new Dimension(GParams.SCREEN_WIDTH,GParams.SCREEN_HEIGHT));
         MigLayout layout = new MigLayout(
-                "gap 0, ins 0",
-                "[20%, align 50%, fill][80%, align 50%, fill]",
+                "gap 0.2%, ins 0.2%",
+                "[20%, fill|80%, fill]",
                 "[30%, fill|14%, fill|14%, fill|14%, fill|14%, fill|14%, fill]"
         );
         setLayout(layout);
@@ -59,7 +61,7 @@ public class MenuPanel extends StatePanel{
         playButton.setFontSize(FONT_SIZE);
         playButton.addActionListener(animPanel);
         playButton.addActionListener(this);
-        playButton.addActionListener(gamePanel);
+        playButton.addActionListener(gameContainerPanel);
         add(playButton, "cell 0 1");
 
         scoresButton.setLabel("Scores");
@@ -80,7 +82,7 @@ public class MenuPanel extends StatePanel{
         editorButton.setFontSize(FONT_SIZE);
         editorButton.addActionListener(animPanel);
         editorButton.addActionListener(this);
-        editorButton.addActionListener(brickFieldPanel);
+        editorButton.addActionListener(editorPanel);
         add(editorButton, "cell 0 4");
 
         exitButton.setLabel("Exit");

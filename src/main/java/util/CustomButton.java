@@ -22,7 +22,7 @@ public class CustomButton extends JComponent implements MouseListener {
     public CustomButton() {
         super();
 
-        setBorder(BorderFactory.createLineBorder(color.darker().darker().darker(), 5));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
         addMouseListener(this);
 
     }
@@ -30,7 +30,7 @@ public class CustomButton extends JComponent implements MouseListener {
         super();
 
         setPreferredSize(new Dimension(width, height));
-        setBorder(BorderFactory.createLineBorder(color.darker().darker().darker(), 5));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         addMouseListener(this);
 
     }
@@ -50,9 +50,9 @@ public class CustomButton extends JComponent implements MouseListener {
         }
 
         g2d.setFont(new Font(fontName, Font.PLAIN, fontSize));
-        g2d.setColor(Color.BLACK);
-        g2d.drawString(label, getWidth()/20+fontSize/10, getHeight()/2+fontSize/2+fontSize/10);
         g2d.setColor(color.darker().darker().darker());
+        g2d.drawString(label, getWidth()/20+fontSize/15, getHeight()/2+fontSize/2+fontSize/15);
+        g2d.setColor(Color.BLACK);
         g2d.drawString(label, getWidth()/20, getHeight()/2+fontSize/2);
 
         g2d.dispose();
@@ -113,5 +113,6 @@ public class CustomButton extends JComponent implements MouseListener {
 
     public void setFontSize(int size) {
         fontSize = size;
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, (int)(fontSize*0.15)));
     }
 }

@@ -13,7 +13,7 @@ public class BrickField implements Serializable {
         field = new Brick[FIELD_WIDTH][FIELD_HEIGHT];
         for (int x = 0; x < FIELD_WIDTH; x++){
             for (int y = 0; y < FIELD_HEIGHT; y++){
-                field[x][y] = new Brick(x*GRID_WIDTH, y*GRID_HEIGHT, GRID_WIDTH, GRID_HEIGHT*2);
+                field[x][y] = new Brick(x* gridWidth, y* gridHeight, gridWidth, gridHeight *2);
             }
         }
         wasChanged = new boolean[FIELD_WIDTH][FIELD_HEIGHT];

@@ -1,9 +1,9 @@
 package level_select;
 
 import net.miginfocom.swing.MigLayout;
-import org.example.AnimPanel;
+import menu.AnimPanel;
 import org.example.GParams;
-import org.example.MenuPanel;
+import menu.MenuPanel;
 import util.CustomButton;
 import util.StatePanel;
 
@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class LevelSlelectPanel extends StatePanel {
     //Calculates font size from screen width so its consistent across multiple resolutions
-    private static final int FONT_SIZE = (int)(GParams.SCREEN_WIDTH * 0.01042);
+    private static final int FONT_SIZE = (int)(GParams.SCREEN_WIDTH * 0.012);
 
     //Components
     CustomButton backButton;

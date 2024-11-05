@@ -1,6 +1,6 @@
-package entity;
+package editor;
 
-import editor.BrickFieldPanel;
+import entity.BrickField;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -10,13 +10,13 @@ import static org.example.GParams.*;
 import static org.example.GParams.FIELD_HEIGHT;
 
 public class EditorBrickField extends BrickField {
-    private final transient BrickFieldPanel editor;
+    private final transient EditorBrickFieldPanel editor;
     protected File saveFile = null;
     protected boolean saved = false;
 
-    public EditorBrickField(BrickFieldPanel brickFieldPanel) {
+    public EditorBrickField(EditorBrickFieldPanel editorBrickFieldPanel) {
         super();
-        editor = brickFieldPanel;
+        editor = editorBrickFieldPanel;
 
     }
     public void update() {
@@ -30,8 +30,8 @@ public class EditorBrickField extends BrickField {
     }
     //Mouse pressed actions
     private void mousePressedAction(){
-        int gridX = editor.getMousePosition().x/GRID_WIDTH;
-        int gridY = editor.getMousePosition().y/GRID_HEIGHT;
+        int gridX = editor.getMousePosition().x/ gridWidth;
+        int gridY = editor.getMousePosition().y/ gridHeight;
         if (gridX >= 0 && gridX < FIELD_WIDTH && gridY >= 0 && gridY < FIELD_HEIGHT && !wasChanged[gridX][gridY]) {
             if (editor.editorMouseHandler.isLeftClickPressedBool()) { //If left-clicked set to current brick type and set alive true
                 field[gridX][gridY].setActiveSprite(editor.editorMouseWheelHandler.getBrickType());

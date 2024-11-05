@@ -1,4 +1,8 @@
-package org.example;
+package menu;
+
+import editor.EditorBrickFieldPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +11,8 @@ import java.awt.event.ActionListener;
 
 public class AnimPanel extends JPanel implements Runnable, ActionListener {
 
-    private transient Thread animThread;
+    transient Logger logger = LoggerFactory.getLogger(AnimPanel.class);
+
     private boolean running;
     boolean col = false;
     Color color = Color.BLACK;
@@ -24,7 +29,7 @@ public class AnimPanel extends JPanel implements Runnable, ActionListener {
     }
 
     public void start() {
-        animThread = new Thread(this);
+        Thread animThread = new Thread(this);
         animThread.start();
         running = true;
     }
@@ -44,7 +49,7 @@ public class AnimPanel extends JPanel implements Runnable, ActionListener {
 
                 }
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                logger.error(e.getMessage());
             }
         }
     }

@@ -1,6 +1,7 @@
 package org.example;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import menu.MenuPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +30,7 @@ public class Main {
             logger.error(e.getMessage());
         }
 
-        GParams gparams = new GParams();
+        GParams.setParams();
 
         //Creates JFrame
         JFrame frame = new JFrame();
@@ -42,7 +43,6 @@ public class Main {
         MenuPanel menuPanel = new MenuPanel(frame);
         frame.add(menuPanel, BorderLayout.CENTER);
         frame.pack();
-        frame.setVisible(true);
 
         //Displays frame
         frame.setLocationRelativeTo(null);

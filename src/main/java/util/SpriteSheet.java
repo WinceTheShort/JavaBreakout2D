@@ -2,7 +2,6 @@ package util;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.Arrays;
 
 public class SpriteSheet extends Rectangle implements Serializable {
     protected transient Sprite[] sprites;

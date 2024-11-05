@@ -1,12 +1,7 @@
 package editor;
 
-import entity.Brick;
-import entity.EditorBrickField;
-import org.example.AnimPanel;
-import org.example.MenuPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import util.CustomButton;
 import util.Sprite;
 import util.Texture;
 import util.TextureRegion;
@@ -19,17 +14,15 @@ import java.awt.event.KeyEvent;
 
 import static org.example.GParams.*;
 
-public class BrickFieldPanel extends JPanel implements Runnable, ActionListener {
+public class EditorBrickFieldPanel extends JPanel implements Runnable, ActionListener {
 
-    transient Logger logger = LoggerFactory.getLogger(BrickFieldPanel.class);
+    transient Logger logger = LoggerFactory.getLogger(EditorBrickFieldPanel.class);
 
-    JFrame frame;
     private boolean inEditor = false;
 
     //Screen settings
-    public static final int INFO_PANEL_HEIGHT = GRID_HEIGHT*4;
-    public static final int SCREEN_WIDTH = FIELD_WIDTH * GRID_WIDTH;
-    public static final int SCREEN_HEIGHT = FIELD_HEIGHT * GRID_HEIGHT + INFO_PANEL_HEIGHT;
+    public static final int SCREEN_WIDTH = FIELD_WIDTH * gridWidth;
+    public static final int SCREEN_HEIGHT = FIELD_HEIGHT * gridHeight;
 
     //FPS
     int fps = 120;
@@ -41,16 +34,12 @@ public class BrickFieldPanel extends JPanel implements Runnable, ActionListener 
 
     private transient Thread editorThread;
     //Creates the grid sprite to match the grid and field sizes
-    private final transient Sprite grid = new Sprite(new TextureRegion(new Texture("src/images/editorGrid.png"),0,0,32*FIELD_WIDTH,16*FIELD_HEIGHT), 0, 0, GRID_WIDTH * FIELD_WIDTH, GRID_HEIGHT * FIELD_HEIGHT);
+    private final transient Sprite grid = new Sprite(new TextureRegion(new Texture("src/images/editorGrid.png"),0,0,32*FIELD_WIDTH,16*FIELD_HEIGHT), 0, 0, gridWidth * FIELD_WIDTH, gridHeight * FIELD_HEIGHT);
     //Brick field
     private final transient EditorBrickField bricks = new EditorBrickField(this);
-    private final transient Brick infoBrick = new Brick(0,FIELD_HEIGHT * GRID_HEIGHT, GRID_WIDTH*4, GRID_WIDTH*4);
+    private InfoBrick infoBrick;
 
-    private transient CustomButton backButton;
-
-
-    public BrickFieldPanel(JFrame frame, MenuPanel menuPanel, AnimPanel animPanel) {
-        this.frame = frame;
+    public EditorBrickFieldPanel() {
 
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         setDoubleBuffered(true);
@@ -60,18 +49,15 @@ public class BrickFieldPanel extends JPanel implements Runnable, ActionListener 
         addMouseListener(editorMouseHandler);
         addMouseWheelListener(editorMouseWheelHandler);
 
-        if (menuPanel != null) {
-            backButton = new CustomButton(50,50);
-            add(backButton);
-            backButton.addActionListener(this);
-            backButton.addActionListener(menuPanel);
-            backButton.addActionListener(animPanel);
-        }
     }
 
     public void startEditorThread() {
         editorThread = new Thread(this);
         editorThread.start();
+    }
+
+    public void setInfoBrick(InfoBrick infoBrick) {
+        this.infoBrick = infoBrick;
     }
 
     @Override
@@ -113,7 +99,6 @@ public class BrickFieldPanel extends JPanel implements Runnable, ActionListener 
 
     public void update() {
         bricks.update();
-        infoBrick.setActiveSprite(editorMouseWheelHandler.getBrickType());
         if (editorKeyHandler.keys[KeyEvent.VK_S] && editorKeyHandler.keys[KeyEvent.VK_CONTROL]){
             bricks.saveBoard();
         }
@@ -122,6 +107,9 @@ public class BrickFieldPanel extends JPanel implements Runnable, ActionListener 
         }
         if (editorKeyHandler.keys[KeyEvent.VK_N] && editorKeyHandler.keys[KeyEvent.VK_CONTROL]){
             bricks.newBoard();
+        }
+        if (infoBrick != null){
+            infoBrick.updateBrick();
         }
     }
 
@@ -132,10 +120,14 @@ public class BrickFieldPanel extends JPanel implements Runnable, ActionListener 
 
         grid.draw(g2d);
         bricks.draw(g2d);
-        infoBrick.draw(g2d);
 
 
         g2d.dispose();
+    }
+
+    public void manualStart(){
+        startEditorThread();
+        requestFocusInWindow();
     }
 
     @Override
@@ -144,14 +136,8 @@ public class BrickFieldPanel extends JPanel implements Runnable, ActionListener 
 
         if(inEditor){
             startEditorThread();
-            frame.add(this, BorderLayout.CENTER);
             requestFocusInWindow();
             repaint();
-            frame.pack();
-        } else {
-            frame.remove(this);
         }
-
-        frame.repaint();
     }
 }

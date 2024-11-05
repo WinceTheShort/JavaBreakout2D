@@ -1,7 +1,7 @@
 package entity;
 
-import org.example.KeyHandler;
-import org.example.GamePanel;
+import game.KeyHandler;
+import game.GamePanel;
 import util.Texture;
 import util.TextureRegion;
 
