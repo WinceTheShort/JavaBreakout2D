@@ -2,6 +2,7 @@ package entity;
 
 import game.KeyHandler;
 import game.GamePanel;
+import org.example.GParams;
 import util.Texture;
 import util.TextureRegion;
 
@@ -28,16 +29,17 @@ public class Player extends Entity {
     }
 
     private void setDefaultValues(){
-        x = 100;
-        y = 100;
-        height = 36;
-        width = 36;
-        speed = 3;
+        width = GParams.gridWidth * 2;
+        height = GParams.gridHeight * 2;
+        x = GParams.fieldDimension.width / 2 - height / 2;
+        y = (int)(GParams.SCREEN_HEIGHT * 0.95 - GParams.gridHeight * 1.5);
+        speed = (int)(width * 0.05);
     }
     public void update(){
-        if (keyHandler.keys[KeyEvent.VK_W]) y -= speed;
-        if (keyHandler.keys[KeyEvent.VK_S]) y += speed;
-        if (keyHandler.keys[KeyEvent.VK_D]) x += speed;
-        if (keyHandler.keys[KeyEvent.VK_A]) x -= speed;
+
+        if (keyHandler.keys[KeyEvent.VK_D] && x < GParams.SCREEN_WIDTH - width) x += speed;
+        if (keyHandler.keys[KeyEvent.VK_A] && x > 0) x -= speed;
+
+        setBounds(x, y, width, height);
     }
 }

@@ -20,10 +20,6 @@ public class EditorBrickFieldPanel extends JPanel implements Runnable, ActionLis
 
     private boolean inEditor = false;
 
-    //Screen settings
-    public static final int SCREEN_WIDTH = FIELD_WIDTH * gridWidth;
-    public static final int SCREEN_HEIGHT = FIELD_HEIGHT * gridHeight;
-
     //FPS
     int fps = 120;
 
@@ -34,7 +30,8 @@ public class EditorBrickFieldPanel extends JPanel implements Runnable, ActionLis
 
     private transient Thread editorThread;
     //Creates the grid sprite to match the grid and field sizes
-    private final transient Sprite grid = new Sprite(new TextureRegion(new Texture("src/images/editorGrid.png"),0,0,32*FIELD_WIDTH,16*FIELD_HEIGHT), 0, 0, gridWidth * FIELD_WIDTH, gridHeight * FIELD_HEIGHT);
+    private final transient Sprite grid = new Sprite(new TextureRegion(new Texture("src/images/editorGrid.png"),0,0,32*FIELD_WIDTH,16*FIELD_HEIGHT),
+            0,0, gridWidth * FIELD_WIDTH, gridHeight * FIELD_HEIGHT);
     //Brick field
     private final transient EditorBrickField bricks = new EditorBrickField(this);
     private InfoBrick infoBrick;
@@ -48,7 +45,7 @@ public class EditorBrickFieldPanel extends JPanel implements Runnable, ActionLis
         addKeyListener(editorKeyHandler);
         addMouseListener(editorMouseHandler);
         addMouseWheelListener(editorMouseWheelHandler);
-
+        grid.setLocation((int) ((double) SCREEN_WIDTH / 2 - grid.getWidth() / 2), 0);
     }
 
     public void startEditorThread() {

@@ -7,20 +7,18 @@ public class GParams {
     public static final Dimension SCREEN_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
     public static final int SCREEN_WIDTH = SCREEN_DIMENSION.width;
     public static final int SCREEN_HEIGHT = SCREEN_DIMENSION.height;
-    public static final int FIELD_WIDTH = 35;
-    public static final int FIELD_HEIGHT = 35;
+    public static final int FIELD_WIDTH = 30;
+    public static final int FIELD_HEIGHT = 25;
     public static int gridWidth = 0;
     public static int gridHeight = 0;
+    public static Dimension fieldDimension;
 
     private GParams() {}
 
     public static void setParams(){
-        if (SCREEN_WIDTH > SCREEN_HEIGHT*0.95*2) {
-            gridWidth = SCREEN_WIDTH / FIELD_WIDTH;
-            gridHeight = gridWidth / 2;
-        } else {
-            gridHeight = (int)(SCREEN_HEIGHT*0.95 / FIELD_HEIGHT);
-            gridWidth = gridHeight * 2;
-        }
+        double z = Math.min((double) SCREEN_WIDTH / (FIELD_WIDTH * 2), (double) SCREEN_HEIGHT / FIELD_HEIGHT);
+        gridWidth = (int)(z * 2);
+        gridHeight = (int)(z);
+        fieldDimension = new Dimension(gridWidth * FIELD_WIDTH, gridHeight * FIELD_HEIGHT);
     }
 }

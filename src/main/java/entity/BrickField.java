@@ -10,10 +10,12 @@ public class BrickField implements Serializable {
     public final boolean[][] wasChanged;
 
     public BrickField() {
+        int offset = (SCREEN_WIDTH - FIELD_WIDTH * gridWidth) / 2;
+
         field = new Brick[FIELD_WIDTH][FIELD_HEIGHT];
         for (int x = 0; x < FIELD_WIDTH; x++){
             for (int y = 0; y < FIELD_HEIGHT; y++){
-                field[x][y] = new Brick(x* gridWidth, y* gridHeight, gridWidth, gridHeight *2);
+                field[x][y] = new Brick(x * gridWidth + offset, y * gridHeight, gridWidth, gridHeight *2);
             }
         }
         wasChanged = new boolean[FIELD_WIDTH][FIELD_HEIGHT];

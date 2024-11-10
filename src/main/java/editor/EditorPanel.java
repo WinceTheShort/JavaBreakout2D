@@ -33,7 +33,7 @@ public class EditorPanel extends StatePanel {
         setPreferredSize(new Dimension(GParams.SCREEN_WIDTH, GParams.SCREEN_HEIGHT));
         MigLayout migLayout = new MigLayout(
                 "gap 1mm, ins 0",
-                "[15%, fill| 20%, fill| 20%, fill| 20%, fill| 20%, fill| 5%, fill]",
+                "[10%, fill| 20%, fill| 20%, fill| 20%, fill| 20%, fill| 10%, fill]",
                 "1mm [5%, fill| 95%, fill]"
         );
         setLayout(migLayout);

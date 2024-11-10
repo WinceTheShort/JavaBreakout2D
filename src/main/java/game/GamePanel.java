@@ -1,5 +1,6 @@
 package game;
 
+import entity.Ball;
 import entity.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     private boolean inGame = false;
 
-    //Screen settings
-    public static final int EXTRA_HEIGHT = 5;
-    private static final int SCREEN_WIDTH = FIELD_WIDTH* gridWidth;
-    private static final int SCREEN_HEIGHT = FIELD_HEIGHT*(gridHeight +EXTRA_HEIGHT);
-
     //FPS
     int fps = 120;
 
@@ -35,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     //Creates player
     private final transient Player player = new Player(this, keyHandler, new TextureRegion(new Texture("src/images/brickSprites.png"), 16, 0, 16, 16));
 
+    private final transient Ball ball = new Ball(5, 5);
 
     public GamePanel() {
 
@@ -43,9 +40,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         setDoubleBuffered(true);
         setFocusable(true);
         addKeyListener(keyHandler);
+        grid.setLocation((int) ((double) SCREEN_WIDTH / 2 - grid.getWidth() / 2), 0);
 
-
-
+        ball.setBounds(100, 100, 50,50);
     }
     public void startGameThread(){
         Thread gameThread = new Thread(this);
@@ -95,6 +92,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     public void update(){
         player.update();
+        ball.checkCollision(player, gameBrickField);
+        ball.update();
     }
 
     @Override
@@ -104,7 +103,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         grid.draw(g2d);
         player.draw(g2d);
-        repaint();
+        ball.draw(g2d);
 
         g2d.dispose();
     }
