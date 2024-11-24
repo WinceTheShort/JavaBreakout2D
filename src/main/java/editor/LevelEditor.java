@@ -10,8 +10,19 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The LevelEditor class is responsible for initializing and displaying the level editor UI for the game.
+ * It sets up the look and feel of the UI, registers custom fonts, configures initial parameters,
+ * and initializes the main editor panel within a JFrame.
+ */
 public class LevelEditor {
 
+    /**
+     * The main method is the entry point of the LevelEditor application. It initializes the UI,
+     * sets up custom fonts, configures the main frame, and launches the editor panel.
+     *
+     * @param args Command-line arguments passed during the application start-up.
+     */
     public static void main(String[] args) {
 
         Logger logger = LoggerFactory.getLogger(LevelEditor.class);

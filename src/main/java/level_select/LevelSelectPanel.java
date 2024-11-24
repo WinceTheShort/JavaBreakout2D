@@ -12,7 +12,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class LevelSlelectPanel extends StatePanel {
+/**
+ * The {@code LevelSelectPanel} class represents the panel used for selecting levels in the game.
+ * It extends {@link StatePanel} and manages the layout and components for level selection, including
+ * navigation buttons and a preview pane.
+ */
+public class LevelSelectPanel extends StatePanel {
     //Calculates font size from screen width so its consistent across multiple resolutions
     private static final int FONT_SIZE = (int)(GParams.SCREEN_WIDTH * 0.012);
 
@@ -24,7 +29,14 @@ public class LevelSlelectPanel extends StatePanel {
 
     GameContainerPanel gameContainerPanel;
 
-    public LevelSlelectPanel(JFrame frame, MenuPanel menuPanel, AnimPanel animPanel) {
+    /**
+     * Constructs a new {@code LevelSelectPanel} with the specified frame, menu panel, and animation panel.
+     *
+     * @param frame the main application frame
+     * @param menuPanel the menu panel
+     * @param animPanel the animation panel
+     */
+    public LevelSelectPanel(JFrame frame, MenuPanel menuPanel, AnimPanel animPanel) {
         super(frame);
         gameContainerPanel = new GameContainerPanel(frame, this);
 
@@ -41,6 +53,12 @@ public class LevelSlelectPanel extends StatePanel {
         initComponents(menuPanel, animPanel);
     }
 
+    /**
+     * Initializes the components for this panel, including back and play buttons, and attaches event listeners.
+     *
+     * @param menuPanel the menu panel
+     * @param animPanel the animation panel
+     */
     private void initComponents(MenuPanel menuPanel, AnimPanel animPanel) {
         backButton = new CustomButton();
         backButton.addActionListener(this);
@@ -68,6 +86,11 @@ public class LevelSlelectPanel extends StatePanel {
         levelScrollPane.addActionListener(_ -> previewPane.loadLevel(levelScrollPane.getSelectedLevel()));
     }
 
+    /**
+     * Handles action events, including loading levels into the scroll pane.
+     *
+     * @param e the action event
+     */
     @Override
     public void actionPerformed(ActionEvent e){
         super.actionPerformed(e);

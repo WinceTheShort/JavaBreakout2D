@@ -5,10 +5,23 @@ import java.io.*;
 
 import static org.example.GParams.*;
 
+/**
+ * Represents a field of bricks in a grid layout.
+ * Handles the creation, drawing, and loading of brick states.
+ */
 public class BrickField implements Serializable {
+    /**
+     * The grid of bricks.
+     */
     protected Brick[][] field;
+    /**
+     * The count of alive bricks.
+     */
     int alive = 0;
-
+    /**
+     * Constructs a BrickField object and initializes the grid of bricks.
+     * The bricks are arranged based on screen and field dimensions defined in GParams.
+     */
     public BrickField() {
         int offset = (SCREEN_WIDTH - FIELD_WIDTH * gridWidth) / 2;
 
@@ -19,6 +32,12 @@ public class BrickField implements Serializable {
             }
         }
     }
+
+    /**
+     * Draws the bricks on the provided Graphics2D object.
+     *
+     * @param g2d the Graphics2D object to draw the bricks on
+     */
     public void draw(Graphics2D g2d){
         for (Brick[] bricks : field) {
             for (Brick brick : bricks) {
@@ -26,6 +45,12 @@ public class BrickField implements Serializable {
             }
         }
     }
+
+    /**
+     * Loads the state of bricks from the specified file.
+     *
+     * @param file the file containing the saved state of bricks
+     */
     protected void load(File file){
         Integer[][] brickStates = null;
         //Save field
@@ -61,9 +86,19 @@ public class BrickField implements Serializable {
             i++;
         }
     }
+
+    /**
+     * Checks if all bricks are clear (none are alive).
+     *
+     * @return true if no bricks are alive, false otherwise
+     */
     public boolean isClear(){
         return alive == 0;
     }
+
+    /**
+     * Decrements the count of alive bricks when a brick dies.
+     */
     public void brickDied(){
         alive--;
     }

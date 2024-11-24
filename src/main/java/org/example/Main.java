@@ -8,8 +8,18 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The Main class serves as the entry point for the application.
+ * It initializes the look and feel, registers a custom font,
+ * sets application parameters, and creates the main application window.
+ */
 public class Main {
 
+    /**
+     * The main method which acts as the entry point for the application.
+     *
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
 
         org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Main.class);
@@ -23,6 +33,10 @@ public class Main {
 
         //Registers my custom font
         try {
+            /*
+             * Registers the custom font by loading it from the specified path.
+             * If an error occurs during this process, it is logged.
+             */
             GraphicsEnvironment ge =
                     GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/minepixel.ttf")));

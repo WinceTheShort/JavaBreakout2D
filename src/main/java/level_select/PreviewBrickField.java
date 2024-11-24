@@ -1,4 +1,6 @@
+
 package level_select;
+
 
 import entity.Brick;
 import entity.BrickField;
@@ -8,7 +10,15 @@ import java.awt.*;
 
 import static org.example.GParams.*;
 
+
+/**
+ * This class represents a preview of a BrickField used to display a level's layout in a smaller grid.
+ */
 public class PreviewBrickField extends BrickField {
+
+    /**
+     * Initializes the PreviewBrickField by setting dimensions and placing bricks accordingly.
+     */
     public PreviewBrickField() {
         int screenWidth = (int)(SCREEN_WIDTH * 0.7);
         int screenHeight = (int)(SCREEN_HEIGHT * 0.95);
@@ -26,9 +36,20 @@ public class PreviewBrickField extends BrickField {
             }
         }
     }
+    /**
+     * Loads the given level into the BrickField.
+     *
+     * @param level The level to be loaded.
+     */
     public void load(LevelManager.Level level) {
         super.load(level.getLevelFile());
     }
+
+    /**
+     * Draws the BrickField onto the provided Graphics2D object.
+     *
+     * @param g2d The Graphics2D object used for drawing.
+     */
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
     }

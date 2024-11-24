@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import static org.example.GParams.*;
 import static org.example.ActionEventIDs.*;
 
+/**
+ * GamePanel is the primary panel for the game, handling the main game loop, input, and rendering.
+ */
 public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     transient Logger logger = LoggerFactory.getLogger(GamePanel.class);
@@ -37,6 +40,12 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     boolean singleLevel = false;
      transient LevelManager.Level level;
 
+    /**
+     * Constructs a GamePanel with the specified label manager and game container panel.
+     *
+     * @param labelManager        the label manager handling label events
+     * @param gameContainerPanel  the game container panel managing the game display
+     */
     public GamePanel(LabelManager labelManager, GameContainerPanel gameContainerPanel) {
         this.gameContainerPanel = gameContainerPanel;
 
@@ -49,6 +58,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         initComponents();
     }
+
+    /**
+     * Initializes the components of the GamePanel, including the grid sprite, brick field,
+     * player, and ball.
+     */
     private void initComponents() {
         Sprite grid;
         KeyHandler keyHandler = new KeyHandler();
@@ -68,6 +82,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         ball = new Ball(2);
 
     }
+
+    /**
+     * Starts the game thread, initializes the game state, and loads the level.
+     */
     public void startGameThread(){
         Thread gameThread = new Thread(this);
 
@@ -89,6 +107,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         gameThread.start();
     }
 
+    /**
+     * Runs the main game loop, which updates and repaints the game state based on
+     * the current frames per second settings.
+     */
     @Override
     public void run() {
 
@@ -128,6 +150,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         System.out.println("quit game state");
     }
 
+    /**
+     * Updates the game state by moving the player, checking collisions, updating levels,
+     * and managing lives.
+     */
     public void update(){
         player.update(ball);
         if (levelStarted) {
@@ -155,6 +181,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
     }
 
+    /**
+     * Paints the game components, including the brick field, player, and ball.
+     *
+     * @param g the Graphics context in which to paint
+     */
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -170,6 +201,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.dispose();
     }
 
+    /**
+     * Toggles the game state between running and not running whenever an action event occurs.
+     *
+     * @param e the action event triggering this method
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         inGame = !inGame;
@@ -183,23 +219,56 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     private final transient ArrayList<ActionListener> listeners = new ArrayList<>();
 
+    /**
+     * Adds an action listener to listen for game events.
+     *
+     * @param listener the ActionListener to be added
+     */
     public void addActionListener(ActionListener listener){
         listeners.add(listener);
     }
+
+    /**
+     * Notifies all registered listeners of the specified action event.
+     *
+     * @param evt the action event to be propagated
+     */
     private void notifyListeners(ActionEvent evt){
         for (ActionListener listener : listeners) {
             listener.actionPerformed(evt);
         }
     }
+
+    /**
+     * Updates the current level and notifies listeners of the level change.
+     *
+     * @param level the new level name
+     */
     public void updateLevel(String level){
         notifyListeners(new ActionEvent(this, LEVEL_CHANGED, level));
     }
+
+    /**
+     * Updates the current score and notifies listeners of the score change.
+     *
+     * @param score the new score
+     */
     public void updateScore(Integer score){
         notifyListeners(new ActionEvent(this, SCORE_CHANGED, score.toString()));
     }
+
+    /**
+     * Updates the number of lives and notifies listeners of the lives change.
+     *
+     * @param lives the new number of lives
+     */
     public void updateLives(Integer lives){
         notifyListeners(new ActionEvent(this, LIVES_CHANGED, lives.toString()));
     }
+
+    /**
+     * Resets the state of the level, including the player's position, ball position, and speed.
+     */
     private void setLevelStartState(){
         levelStarted = false;
         player.resetPosition();
@@ -212,6 +281,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         updateScore(0);
     }
 
+    /**
+     * Loads a single level for gameplay.
+     *
+     * @param level the level to be loaded
+     */
     public void loadSingleLevel(LevelManager.Level level){
         this.level = level;
         singleLevel = true;

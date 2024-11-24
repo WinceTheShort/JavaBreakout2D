@@ -7,6 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 
+/**
+ * The {@code ScoreLabel} class represents a customized JPanel with labels arranged
+ * using MigLayout to display scores, player names, and levels consistently across
+ * different screen resolutions.
+ */
 public class ScoreLabel extends JPanel {
     //Calculates font size from screen width so its consistent across multiple resolutions
     private static final int FONT_SIZE = (int)(GParams.SCREEN_WIDTH * 0.012);
@@ -14,7 +19,12 @@ public class ScoreLabel extends JPanel {
 
     LinkedList<JLabel> labels = new LinkedList<>();
 
-    public ScoreLabel(int pos) {
+/**
+ * Constructs a {@code ScoreLabel} object with a specific position.
+ *
+ * @param pos the position to be displayed in the label
+ */
+public ScoreLabel(int pos) {
         setBackground(Color.gray);
         MigLayout layout = new MigLayout(
                 "gap 0, ins 0",
@@ -48,7 +58,10 @@ public class ScoreLabel extends JPanel {
         }
 
     }
-    public ScoreLabel() {
+/**
+ * Constructs a {@code ScoreLabel} object with default labels for position, name, level, and score.
+ */
+public ScoreLabel() {
         setBackground(Color.gray.darker());
         MigLayout layout = new MigLayout(
                 "gap 0, ins 0",
@@ -82,7 +95,12 @@ public class ScoreLabel extends JPanel {
         }
     }
 
-    public void setLabels(HighscoreManager.Highscore highscore) {
+/**
+ * Sets the labels for the score panel using the provided highscore data.
+ *
+ * @param highscore the highscore data containing player name, level reached, and score
+ */
+public void setLabels(HighscoreManager.Highscore highscore) {
         labels.get(1).setText(" " + highscore.getPlayerName());
         labels.get(2).setText(" " + highscore.getLvlReached());
         labels.get(3).setText(" " + highscore.getScore());

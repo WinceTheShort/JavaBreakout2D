@@ -13,6 +13,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
+/**
+ * The `EditorPanel` class extends `StatePanel` and provides a user interface
+ * for editing and managing a brick field. It includes buttons for actions
+ * such as "New", "Load", "Save", "Save As", and "Back", and integrates components
+ * like `EditorBrickFieldPanel` and `InfoBrick`.
+ */
 public class EditorPanel extends StatePanel {
     //Calculates font size from screen width so its consistent across multiple resolutions
     private static final int FONT_SIZE = (int)(GParams.SCREEN_WIDTH * 0.012);
@@ -27,6 +33,14 @@ public class EditorPanel extends StatePanel {
 
     transient LinkedList<ActionListener> actionListeners = new LinkedList<>();
 
+    /**
+     * Constructs an EditorPanel with the specified JFrame, MenuPanel, and AnimPanel.
+     * Sets the preferred size and layout, then initializes the components.
+     *
+     * @param frame      the main JFrame of the application
+     * @param menuPanel  the MenuPanel to be part of this editor panel
+     * @param animPanel  the AnimPanel to be included in this editor panel
+     */
     public EditorPanel(JFrame frame, MenuPanel menuPanel, AnimPanel animPanel) {
         super(frame);
 
@@ -41,6 +55,16 @@ public class EditorPanel extends StatePanel {
         initComponents(menuPanel, animPanel);
     }
 
+    /**
+     * Initializes and configures the components within the EditorPanel. It sets up the editor brick field,
+     * a set of interactive buttons (Back, New, Load, Save, Save As), and an information brick. The buttons
+     * are associated with specific actions such as starting a new board, loading a saved board, and saving
+     * the current state of the board. Additionally, it handles action listeners based on the presence of
+     * the provided menuPanel and animPanel.
+     *
+     * @param menuPanel the MenuPanel instance to integrate with this editor panel, can be null
+     * @param animPanel the AnimPanel instance to integrate with this editor panel, can be null
+     */
     private void initComponents(MenuPanel menuPanel, AnimPanel animPanel) {
         editorBrickFieldPanel = new EditorBrickFieldPanel();
         add(editorBrickFieldPanel, "cell 0 1 6 1");
@@ -89,9 +113,20 @@ public class EditorPanel extends StatePanel {
 
     }
 
+    /**
+     * Adds an ActionListener to the list of listeners to be notified of action events.
+     *
+     * @param actionListener the ActionListener to be added
+     */
     public void addActionListener(ActionListener actionListener) {
         actionListeners.add(actionListener);
     }
+
+    /**
+     * Notifies all registered ActionListeners about an action event.
+     *
+     * @param e the ActionEvent that triggered the notification
+     */
     private void notifyActionListeners(ActionEvent e) {
         ActionEvent evt = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "", e.getWhen(), e.getModifiers());
         for (ActionListener listener : actionListeners) {
@@ -99,6 +134,13 @@ public class EditorPanel extends StatePanel {
         }
     }
 
+    /**
+     * Handles the action event triggered by user interaction within the EditorPanel.
+     * Overrides the default actionPerformed method to include additional functionality
+     * like notifying registered action listeners after executing the superclass action.
+     *
+     * @param e the ActionEvent that triggers this method
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);

@@ -12,8 +12,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+/**
+ * The ScoresPanel is a custom panel for displaying high scores in the game.
+ * It extends the StatePanel and utilizes MigLayout for structuring the components.
+ */
 public class ScoresPanel extends StatePanel {
-    //Calculates font size from screen width so its consistent across multiple resolutions
+
+    /**
+     * Calculates the font size from the screen width so it's consistent across multiple resolutions.
+     */
     private static final int FONT_SIZE = (int)(GParams.SCREEN_WIDTH * 0.012);
 
     //Components
@@ -21,7 +28,14 @@ public class ScoresPanel extends StatePanel {
     HighscoreManager manager;
     ArrayList<ScoreLabel> labels = new ArrayList<>();
 
-    public ScoresPanel(JFrame frame, MenuPanel menuPanel, AnimPanel animPanel) {
+/**
+ * Constructs a ScoresPanel with the specified frame, menu panel, and animation panel.
+ *
+ * @param frame the main application JFrame.
+ * @param menuPanel the panel for the main menu.
+ * @param animPanel the panel for animations.
+ */
+public ScoresPanel(JFrame frame, MenuPanel menuPanel, AnimPanel animPanel) {
         super(frame);
 
         setPreferredSize(new Dimension(GParams.SCREEN_WIDTH, GParams.SCREEN_HEIGHT));
@@ -35,7 +49,13 @@ public class ScoresPanel extends StatePanel {
         initComponents(menuPanel, animPanel);
     }
 
-    private void initComponents(MenuPanel menuPanel, AnimPanel animPanel) {
+/**
+ * Initializes the components of the ScoresPanel.
+ *
+ * @param menuPanel the panel for the main menu.
+ * @param animPanel the panel for animations.
+ */
+private void initComponents(MenuPanel menuPanel, AnimPanel animPanel) {
         backButton = new CustomButton();
         backButton.setLabel("Back");
         backButton.setFontSize(FONT_SIZE);
@@ -57,7 +77,12 @@ public class ScoresPanel extends StatePanel {
         }
     }
 
-    @Override
+/**
+ * Handles the action events, such as refreshing and reloading the high scores.
+ *
+ * @param e the action event triggered.
+ */
+@Override
     public void actionPerformed(ActionEvent e) {
         manager.loadHighscores();
         ArrayList<HighscoreManager.Highscore> highscores = (ArrayList<HighscoreManager.Highscore>) manager.getHighscores();
