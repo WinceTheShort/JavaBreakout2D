@@ -9,6 +9,8 @@ import util.StatePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class ScoresPanel extends StatePanel {
     //Calculates font size from screen width so its consistent across multiple resolutions
@@ -16,6 +18,8 @@ public class ScoresPanel extends StatePanel {
 
     //Components
     CustomButton backButton;
+    HighscoreManager manager;
+    ArrayList<ScoreLabel> labels = new ArrayList<>();
 
     public ScoresPanel(JFrame frame, MenuPanel menuPanel, AnimPanel animPanel) {
         super(frame);
@@ -24,7 +28,7 @@ public class ScoresPanel extends StatePanel {
         MigLayout migLayout = new MigLayout(
                 "gap 0, ins 0",
                 "[10%, fill| 90%, fill]",
-                "[5%, fill| 95%, fill]"
+                "[5%, fill| 8.6%, fill| 8.6%, fill| 8.6%, fill| 8.6%, fill| 8.6%, fill| 8.6%, fill| 8.6%, fill| 8.6%, fill| 8.6%, fill| 8.6%, fill]"
         );
         setLayout(migLayout);
 
@@ -39,5 +43,27 @@ public class ScoresPanel extends StatePanel {
         backButton.addActionListener(menuPanel);
         backButton.addActionListener(animPanel);
         add(backButton, "cell 0 0");
+        
+        ScoreLabel headerLabel = new ScoreLabel();
+        add(headerLabel, "cell 0 1 2 1");
+
+        manager = new HighscoreManager();
+        manager.loadHighscores();
+        ArrayList<HighscoreManager.Highscore> highscores = (ArrayList<HighscoreManager.Highscore>) manager.getHighscores();
+        for (int i = 0; i < highscores.size() && i < 10; i++) {
+            ScoreLabel label = new ScoreLabel(i + 1);
+            add(label, "cell 0 " + (i+2) + " 2 1");
+            labels.add(label);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        manager.loadHighscores();
+        ArrayList<HighscoreManager.Highscore> highscores = (ArrayList<HighscoreManager.Highscore>) manager.getHighscores();
+        for (int i = 0; i < highscores.size() && i < 10; i++) {
+            labels.get(i).setLabels(highscores.get(i));
+        }
+        super.actionPerformed(e);
     }
 }

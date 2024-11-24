@@ -13,9 +13,12 @@ public class EditorBrickField extends BrickField {
     private final transient EditorBrickFieldPanel editor;
     protected File saveFile = null;
     protected boolean saved = false;
+    public final boolean[][] wasChanged;
+
 
     public EditorBrickField(EditorBrickFieldPanel editorBrickFieldPanel) {
         super();
+        wasChanged = new boolean[FIELD_WIDTH][FIELD_HEIGHT];
         editor = editorBrickFieldPanel;
 
     }
@@ -64,23 +67,41 @@ public class EditorBrickField extends BrickField {
         saveFile = null;
     }
     public void saveBoard(){
+        Integer[][] brickStates = new Integer[FIELD_WIDTH][FIELD_HEIGHT];
+        for (int x = 0; x < FIELD_WIDTH; x++){
+            for (int y = 0; y < FIELD_HEIGHT; y++){
+                brickStates[x][y] = field[x][y].getActiveSprite();
+            }
+        }
+
         if (!saved){
             if (saveFile == null){
-                JFileChooser fileChooser = getjFileChooser();
-                if (fileChooser.showSaveDialog(editor) == JFileChooser.APPROVE_OPTION) {
-                    saveFile = fileChooser.getSelectedFile();
-                    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
-                        oos.writeObject(field);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
+                saveAs();
             } else {
                 try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
-                    oos.writeObject(field);
+                    oos.writeObject(brickStates);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+    public void saveAs(){
+        Integer[][] brickStates = new Integer[FIELD_WIDTH][FIELD_HEIGHT];
+        for (int x = 0; x < FIELD_WIDTH; x++){
+            for (int y = 0; y < FIELD_HEIGHT; y++){
+                brickStates[x][y] = field[x][y].getActiveSprite();
+            }
+        }
+
+        JFileChooser fileChooser = getjFileChooser();
+        if (fileChooser.showSaveDialog(editor) == JFileChooser.APPROVE_OPTION) {
+            saveFile = fileChooser.getSelectedFile();
+            saveFile = new File(saveFile.getPath()+".save");
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile))) {
+                oos.writeObject(brickStates);
+            } catch (Exception e){
+                e.printStackTrace();
             }
         }
     }
@@ -98,7 +119,7 @@ public class EditorBrickField extends BrickField {
         fileChooser.addChoosableFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                return f.isFile() && f.getName().toLowerCase().endsWith(".save");
+                return (f.isFile() && f.getName().toLowerCase().endsWith(".save")) || f.isDirectory();
             }
 
             @Override

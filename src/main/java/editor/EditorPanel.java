@@ -54,7 +54,7 @@ public class EditorPanel extends StatePanel {
             backButton.addActionListener(menuPanel);
             backButton.addActionListener(animPanel);
         } else {
-            backButton.addActionListener(e -> System.exit(0));
+            backButton.addActionListener(_ -> System.exit(0));
             editorBrickFieldPanel.manualStart();
         }
             add(backButton, "cell 0 0, gapleft 1mm");
@@ -62,21 +62,25 @@ public class EditorPanel extends StatePanel {
         newButton = new CustomButton();
         newButton.setLabel("New");
         newButton.setFontSize(FONT_SIZE);
+        newButton.addActionListener(_ -> editorBrickFieldPanel.getBricks().newBoard());
         add(newButton, "cell 1 0");
 
         loadButton = new CustomButton();
         loadButton.setLabel("Load");
         loadButton.setFontSize(FONT_SIZE);
+        loadButton.addActionListener(_ -> editorBrickFieldPanel.getBricks().openBoard());
         add(loadButton, "cell 2 0");
 
         saveButton = new CustomButton();
         saveButton.setLabel("Save");
         saveButton.setFontSize(FONT_SIZE);
+        saveButton.addActionListener(_ -> editorBrickFieldPanel.getBricks().saveBoard());
         add(saveButton, "cell 3 0");
 
         saveAsButton = new CustomButton();
         saveAsButton.setLabel("Save As");
         saveAsButton.setFontSize(FONT_SIZE);
+        saveAsButton.addActionListener(_ -> editorBrickFieldPanel.getBricks().saveAs());
         add(saveAsButton, "cell 4 0");
 
         infoBrick = new InfoBrick(editorBrickFieldPanel);

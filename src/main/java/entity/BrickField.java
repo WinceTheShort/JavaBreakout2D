@@ -7,7 +7,7 @@ import static org.example.GParams.*;
 
 public class BrickField implements Serializable {
     protected Brick[][] field;
-    public final boolean[][] wasChanged;
+    int alive = 0;
 
     public BrickField() {
         int offset = (SCREEN_WIDTH - FIELD_WIDTH * gridWidth) / 2;
@@ -18,7 +18,6 @@ public class BrickField implements Serializable {
                 field[x][y] = new Brick(x * gridWidth + offset, y * gridHeight, gridWidth, gridHeight *2);
             }
         }
-        wasChanged = new boolean[FIELD_WIDTH][FIELD_HEIGHT];
     }
     public void draw(Graphics2D g2d){
         for (Brick[] bricks : field) {
@@ -28,17 +27,44 @@ public class BrickField implements Serializable {
         }
     }
     protected void load(File file){
+        Integer[][] brickStates = null;
         //Save field
         try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file))) {
-            field = (Brick[][]) oos.readObject();
+            brickStates = (Integer[][]) oos.readObject();
         } catch (Exception e){
             e.printStackTrace();
         }
         //Reload bricks textures
+        int i = 0;
         for (Brick[] bricks : field){
+            int j = 0;
             for (Brick brick : bricks){
                 brick.reloadTexture();
+                assert brickStates != null;
+                brick.setActiveSprite(brickStates[i][j]);
+                if (brick.getActiveSprite() == 0){
+                    brick.setAlive(false);
+                    brick.setWall(false);
+                }
+                else if (brick.getActiveSprite() == 5){
+                    brick.setAlive(false);
+                    brick.setWall(true);
+                }
+                else {
+                    brick.setWall(false);
+                    brick.setAlive(true);
+                    brick.reloadTexture();
+                    alive++;
+                }
+                j++;
             }
+            i++;
         }
+    }
+    public boolean isClear(){
+        return alive == 0;
+    }
+    public void brickDied(){
+        alive--;
     }
 }

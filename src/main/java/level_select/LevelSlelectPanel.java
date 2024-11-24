@@ -1,5 +1,6 @@
 package level_select;
 
+import game.GameContainerPanel;
 import net.miginfocom.swing.MigLayout;
 import menu.AnimPanel;
 import org.example.GParams;
@@ -9,6 +10,7 @@ import util.StatePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class LevelSlelectPanel extends StatePanel {
     //Calculates font size from screen width so its consistent across multiple resolutions
@@ -18,9 +20,13 @@ public class LevelSlelectPanel extends StatePanel {
     CustomButton backButton;
     CustomButton playButton;
     PreviewPane previewPane;
+    LevelScrollPane levelScrollPane;
+
+    GameContainerPanel gameContainerPanel;
 
     public LevelSlelectPanel(JFrame frame, MenuPanel menuPanel, AnimPanel animPanel) {
         super(frame);
+        gameContainerPanel = new GameContainerPanel(frame, this);
 
         MigLayout migLayout = new MigLayout(
                 "gap 0, ins 0",
@@ -30,6 +36,7 @@ public class LevelSlelectPanel extends StatePanel {
         setLayout(migLayout);
 
         setPreferredSize(new Dimension(GParams.SCREEN_WIDTH, GParams.SCREEN_HEIGHT));
+        setFocusable(true);
 
         initComponents(menuPanel, animPanel);
     }
@@ -46,14 +53,25 @@ public class LevelSlelectPanel extends StatePanel {
 
         playButton = new CustomButton();
         playButton.addActionListener(this);
+        playButton.addActionListener(_ -> gameContainerPanel.loadSingleLevel(levelScrollPane.getSelectedLevel()));
+        playButton.addActionListener(gameContainerPanel);
         playButton.setLabel("Play");
         playButton.setFontSize(FONT_SIZE);
         add(playButton, "cell 4 0");
 
         previewPane = new PreviewPane();
         previewPane.setBackground(Color.WHITE);
-        add(previewPane, "cell 2 1 4 1");
+        add(previewPane, "cell 2 1 3 1");
 
+        levelScrollPane = new LevelScrollPane();
+        add(levelScrollPane, "cell 0 1 2 1");
+        levelScrollPane.addActionListener(_ -> previewPane.loadLevel(levelScrollPane.getSelectedLevel()));
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        super.actionPerformed(e);
+        levelScrollPane.loadLevels();
     }
 
 }

@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class CustomButton extends JComponent implements MouseListener {
 
-    private static String fontName = "minepixel";
+    private static final String fontName = "minepixel";
 
-    private transient ArrayList<ActionListener> listeners = new ArrayList<>();
+    private final transient ArrayList<ActionListener> listeners = new ArrayList<>();
 
     private boolean mouseEntered = false;
     private boolean mousePressed = false;
@@ -114,5 +114,8 @@ public class CustomButton extends JComponent implements MouseListener {
     public void setFontSize(int size) {
         fontSize = size;
         setBorder(BorderFactory.createLineBorder(Color.BLACK, (int)(fontSize*0.15)));
+    }
+    public void doClick(){
+        notifyListeners(new MouseEvent(this, 0, 0, 0, 0, 0, 0, false));
     }
 }

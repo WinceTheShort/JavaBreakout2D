@@ -21,14 +21,13 @@ public class EditorBrickFieldPanel extends JPanel implements Runnable, ActionLis
     private boolean inEditor = false;
 
     //FPS
-    int fps = 120;
+    int fps = 60;
 
     //Handlers
     public final EditorKeyHandler editorKeyHandler = new EditorKeyHandler();
     public final transient EditorMouseHandler editorMouseHandler = new EditorMouseHandler();
     public final transient EditorMouseWheelHandler editorMouseWheelHandler = new EditorMouseWheelHandler();
 
-    private transient Thread editorThread;
     //Creates the grid sprite to match the grid and field sizes
     private final transient Sprite grid = new Sprite(new TextureRegion(new Texture("src/images/editorGrid.png"),0,0,32*FIELD_WIDTH,16*FIELD_HEIGHT),
             0,0, gridWidth * FIELD_WIDTH, gridHeight * FIELD_HEIGHT);
@@ -49,7 +48,7 @@ public class EditorBrickFieldPanel extends JPanel implements Runnable, ActionLis
     }
 
     public void startEditorThread() {
-        editorThread = new Thread(this);
+        Thread editorThread = new Thread(this);
         editorThread.start();
     }
 
@@ -69,7 +68,7 @@ public class EditorBrickFieldPanel extends JPanel implements Runnable, ActionLis
         long frameTimer = 0;
         int frames = 0;
 
-        while(editorThread.isAlive()){
+        while(inEditor){
             startTime = System.nanoTime();
             delta += (startTime - lastTime) / drawInterval;
             frameTimer += startTime - lastTime;
@@ -136,5 +135,9 @@ public class EditorBrickFieldPanel extends JPanel implements Runnable, ActionLis
             requestFocusInWindow();
             repaint();
         }
+    }
+
+    public EditorBrickField getBricks() {
+        return bricks;
     }
 }
