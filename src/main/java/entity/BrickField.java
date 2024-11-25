@@ -102,4 +102,13 @@ public class BrickField implements Serializable {
     public void brickDied(){
         alive--;
     }
+
+    public void resetAliveCount(){
+        alive = 0;
+        for (Brick[] bricks : field){
+            for (Brick brick : bricks){
+                if (brick.isAlive()) alive++;
+            }
+        }
+    }
 }

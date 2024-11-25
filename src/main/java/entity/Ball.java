@@ -27,10 +27,9 @@ public class Ball extends Sprite {
     /**
      * Constructor to initialize the Ball with a specific speed scale.
      *
-     * @param speedScale the factor by which the ball's speed is scaled
      */
-    public Ball(double speedScale) {
-        this.speedScale = speedScale;
+    public Ball() {
+        this.speedScale = (double) GParams.gridHeight / 38;
     }
 
     /**

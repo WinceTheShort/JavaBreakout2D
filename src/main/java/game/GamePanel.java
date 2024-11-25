@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     private transient LevelManager levelManager;
 
     boolean singleLevel = false;
-     transient LevelManager.Level level;
+    transient LevelManager.Level level;
 
     /**
      * Constructs a GamePanel with the specified label manager and game container panel.
@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         //Creates player
         player = new Player(this, keyHandler, new TextureRegion(new Texture("src/images/brickSprites.png"), 16, 0, 16, 16));
 
-        ball = new Ball(2);
+        ball = new Ball();
 
     }
 
@@ -100,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             updateLevel(level.getLevelName());
         } else {
             gameBrickField.load(levelManager.getLevel().getLevelFile());
+            gameBrickField.resetAliveCount();
             updateLevel(levelManager.getLevel().getLevelName());
         }
 
