@@ -1,5 +1,6 @@
 package editor;
 
+import entity.Brick;
 import entity.BrickField;
 
 import javax.swing.*;
@@ -240,4 +241,14 @@ public class EditorBrickField extends BrickField {
         return fileChooser;
     }
 
+    public Brick getBrickAt(int x, int y){
+        if (x >= 0 && x < FIELD_WIDTH && y >= 0 && y < FIELD_HEIGHT){
+            return field[x][y];
+        }
+        return null;
+    }
+
+    public void loadBoard(String saveFile){
+        load(new File(saveFile));
+    }
 }

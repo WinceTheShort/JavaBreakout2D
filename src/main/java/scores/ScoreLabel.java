@@ -6,6 +6,7 @@ import org.example.GParams;
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The {@code ScoreLabel} class represents a customized JPanel with labels arranged
@@ -19,12 +20,12 @@ public class ScoreLabel extends JPanel {
 
     LinkedList<JLabel> labels = new LinkedList<>();
 
-/**
- * Constructs a {@code ScoreLabel} object with a specific position.
- *
- * @param pos the position to be displayed in the label
- */
-public ScoreLabel(int pos) {
+    /**
+     * Constructs a {@code ScoreLabel} object with a specific position.
+     *
+     * @param pos the position to be displayed in the label
+     */
+    public ScoreLabel(int pos) {
         setBackground(Color.gray);
         MigLayout layout = new MigLayout(
                 "gap 0, ins 0",
@@ -58,10 +59,10 @@ public ScoreLabel(int pos) {
         }
 
     }
-/**
- * Constructs a {@code ScoreLabel} object with default labels for position, name, level, and score.
- */
-public ScoreLabel() {
+    /**
+     * Constructs a {@code ScoreLabel} object with default labels for position, name, level, and score.
+     */
+    public ScoreLabel() {
         setBackground(Color.gray.darker());
         MigLayout layout = new MigLayout(
                 "gap 0, ins 0",
@@ -95,14 +96,35 @@ public ScoreLabel() {
         }
     }
 
-/**
- * Sets the labels for the score panel using the provided highscore data.
- *
- * @param highscore the highscore data containing player name, level reached, and score
- */
-public void setLabels(HighscoreManager.Highscore highscore) {
+    /**
+     * Sets the labels for the score panel using the provided highscore data.
+     *
+     * @param highscore the highscore data containing player name, level reached, and score
+     */
+    public void setLabels(HighscoreManager.Highscore highscore) {
         labels.get(1).setText(" " + highscore.getPlayerName());
         labels.get(2).setText(" " + highscore.getLvlReached());
         labels.get(3).setText(" " + highscore.getScore());
     }
+
+    public int getPos() {
+        return Integer.parseInt(labels.getFirst().getText());
+    }
+
+    public String getPlayerName() {
+        return labels.get(1).getText().trim();
+    }
+
+    public int getReachedLevel() {
+        return Integer.parseInt(labels.get(2).getText().trim());
+    }
+
+    public int getScore() {
+        return Integer.parseInt(labels.get(3).getText().trim());
+    }
+
+    public List<JLabel> getLabels() {
+        return labels;
+    }
+
 }

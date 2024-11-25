@@ -261,4 +261,16 @@ public class LevelCheckbox extends JPanel implements MouseListener, ActionListen
         setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         repaint();
     }
+
+    public boolean isSelectable() {
+        return selectable;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public String getLevelName() {
+        return level.getLevelName();
+    }
 }

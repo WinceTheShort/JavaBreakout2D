@@ -102,7 +102,7 @@ public class Brick extends SpriteSheet implements Serializable {
     }
 
     /**
-     * Reloads the brick texture from the spritesheet,
+     * Reloads the brick texture from the sprite sheet,
      * recreating sprite objects based on the texture regions.
      */
     public void reloadTexture() {
